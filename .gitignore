@@ -1,0 +1,8 @@
+
+# Virtual environments
+.venv
+.env
+.idea
+sandbox*
+__pycache__
+result.xml
