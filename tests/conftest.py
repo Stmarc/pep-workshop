@@ -12,7 +12,7 @@ def env_config() -> EnvConfig:
 
 @pytest.fixture(scope="session")
 def user_config() -> UserConfig:
-    """Usersname """
+    """Usersname"""
     return UserConfig()
 
 

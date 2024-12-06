@@ -1,18 +1,44 @@
 import requests
 from pytest_check import check
+from src.models.bookings import Booking, BookingDates, BookingWithId
+import pprint
 
-from http import HTTPStatus
-
-def test_getBookingsId(env_config_booking_url):
-    respons: requests.Response = requests.get(url=env_config_booking_url)
-    response_data=respons.json()
-    print("Bookings")
-    with check:
-        print("Bookings")
-        assert respons.status_code==200
+def test_get_all_booking_ids(booking_url):
+    response: requests.Response = requests.get(url=booking_url)
 
     with check:
-        assert "bookingid" in response_data[0]
+        assert response.status_code == 200
+
+    with check:
+        assert len(response.json()) > 0
+
+    with check:
+        assert "bookingid" in response.json()[0]
+
+    with check:
+        assert isinstance(response.json()[0]["bookingid"], int)
+
+
+# def test_get_booking_by_first_name(booking_url, single_booking_with_id):
+#     params = {
+#         "firstname": single_booking_with_id.booking.firstname.lower(),
+#         "lastname": single_booking_with_id.booking.lastname.lower(),
+#     }
+#     print(params)
+#     response: requests.Response = requests.get(url=booking_url, params=params)
+#     print(response.json())
+
+
+def test_get_booking_by_id(booking_url, single_booking_with_id):
+    response: requests.Response = requests.get(url=f"{booking_url}/{single_booking_with_id.bookingid}")
+    booking=Booking.model_validate(response.json())
+
+    with check:
+        assert single_booking_with_id.booking==booking
+    with check:
+        response.status_code==200
+
+    print(single_booking_with_id)
 
 
 

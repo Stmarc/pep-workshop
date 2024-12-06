@@ -10,6 +10,8 @@ dependencies = [
     "pytest>=8.3.4",
     "requests>=2.32.3",
     "pytest-check>=2.4.1",
+    "faker>=33.1.0",
+    "typer>=0.15.1",
 ]
 
 [dependency-groups]

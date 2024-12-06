@@ -6,3 +6,5 @@
 sandbox*
 __pycache__
 result.xml
+*.csv
+*.json
