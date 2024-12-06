@@ -14,7 +14,9 @@ class Booking(pydantic.BaseModel):
     additionalneeds: str = ""
     bookingdates: BookingDates = BookingDates()
 
-
+class FakeNames(pydantic.BaseModel):
+    firstname: str =""
+    lastname: str = ""
 class BookingWithId(pydantic.BaseModel):
     bookingid: int | None = None
     booking: Booking | None = None

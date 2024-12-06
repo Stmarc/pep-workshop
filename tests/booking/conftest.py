@@ -1,14 +1,14 @@
 import pytest
 import json
-from src.models.bookings import BookingWithId, Booking
+from src.models.bookings import BookingWithId, Booking,FakeNames
 from app import BOOKINGS_JSON_FILE
 import random
 import requests
-
+from faker import Faker
 
 @pytest.fixture(scope="session")
 def booking_url(env_config) -> str:
-    return f"{env_config.url}/booking"
+    return f"{env_config.url}booking"
 
 
 @pytest.fixture(scope="session")
@@ -49,3 +49,11 @@ def single_booking_with_id(booking_url, all_bookings_with_id) -> BookingWithId:
         booking=booking,
     )
     return booking_with_id
+
+@pytest.fixture(scope="function")
+def fake_names()->FakeNames:
+    faker=Faker()
+    fakenames=FakeNames()
+    fakenames.firstname=faker.first_name()
+    fakenames.lastname=faker.last_name()
+    return fakenames
